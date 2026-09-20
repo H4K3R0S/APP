@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OKO — Podešavanja</title>
+<link rel="stylesheet" href="/settings.css">
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>👁 OKO</h1>
+    <span id="status" class="status">…</span>
+  </header>
+
+  <section class="quick">
+    <button data-mode="region" class="qbtn">Uhvati region</button>
+    <button data-mode="window" class="qbtn">Uhvati prozor</button>
+    <button data-mode="screen" class="qbtn">Uhvati ekran</button>
+  </section>
+
+  <form id="form" class="grid">
+    <label>Language / Jezik
+      <select name="lang">
+        <option value="en">English</option>
+        <option value="sr">Srpski</option>
+      </select>
+    </label>
+    <label>Hotkey (globalni taster)
+      <input name="hotkey" type="text" autocomplete="off" placeholder="Insert">
+    </label>
+    <label>Podrazumevani mod
+      <select name="mode">
+        <option value="region">region</option>
+        <option value="window">prozor</option>
+        <option value="screen">ekran</option>
+      </select>
+    </label>
+    <label>Posle izbora
+      <select name="after_select">
+        <option value="ask">pitaj (Fajl/Clipboard)</option>
+        <option value="file">odmah fajl</option>
+        <option value="clipboard">odmah clipboard</option>
+      </select>
+    </label>
+    <label>Putanja snimanja
+      <input name="save_dir" type="text" placeholder="~/Pictures">
+    </label>
+    <label>Format
+      <select name="format">
+        <option value="png">png</option>
+        <option value="jpg">jpg</option>
+      </select>
+    </label>
+    <label>JPG kvalitet
+      <input name="jpg_quality" type="number" min="1" max="100">
+    </label>
+    <label>Šablon imena
+      <input name="filename_template" type="text" placeholder="oko-%Y%m%d-%H%M%S">
+    </label>
+    <label class="check">
+      <input name="element_pick" type="checkbox"> AI Windows Cache (hvata sekcije/elemente u prozorima)
+    </label>
+    <label>Prečica: trenutni AI cache
+      <input name="hotkey_ai_cache" type="text" autocomplete="off" placeholder="npr. F9 (prazno = isključeno)">
+    </label>
+    <label>Prečica: otkaz (Esc)
+      <input name="hotkey_cancel" type="text" autocomplete="off" placeholder="Escape">
+    </label>
+    <label class="check">
+      <input name="autostart" type="checkbox"> Autostart (systemd --user)
+    </label>
+  </form>
+
+  <footer>
+    <button id="save" class="primary">Sačuvaj</button>
+    <span id="msg" class="msg"></span>
+  </footer>
+</main>
+<script src="/settings.js"></script>
+</body>
+</html>

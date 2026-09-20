@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=OKO
+GenericName=Snimanje ekrana
+Comment=Hvatanje ekrana/prozora/regiona (globalni taster Insert)
+Exec=/home/kalima/ai/APPS/utilities/oko/oko.sh
+Icon=camera-photo
+Terminal=false
+Categories=Graphics;
+Keywords=screenshot;snimak;capture;ekran;oko;
+StartupNotify=false

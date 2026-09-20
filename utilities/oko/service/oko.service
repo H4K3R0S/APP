@@ -1,0 +1,18 @@
+[Unit]
+Description=OKO — screenshot/capture daemon (Insert hotkey + IPC :4807)
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+# Pokretanje kroz venv (gi iz sistema preko --system-site-packages)
+ExecStart=/home/kalima/ai/APPS/utilities/oko/.venv/bin/python -m daemon
+WorkingDirectory=/home/kalima/ai/APPS/utilities/oko
+Restart=on-failure
+RestartSec=2
+# Potreban X pristup (X11 sesija)
+Environment=DISPLAY=:0.0
+Environment=XAUTHORITY=/home/kalima/.Xauthority
+
+[Install]
+WantedBy=graphical-session.target

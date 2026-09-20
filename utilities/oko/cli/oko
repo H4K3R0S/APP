@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""OKO CLI — tanak IPC klijent (za ai_workplace/mene i ručno).
+
+Primeri:
+  oko capture --mode window            # snimi aktivni prozor (dijalog po config-u)
+  oko capture --mode screen --dest file --path /tmp/x.png   # headless u fajl
+  oko capture --mode region            # interaktivni izbor
+  oko last                             # poslednji snimak (JSON)
+  oko health                           # status daemona
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import urllib.request
+
+DEFAULT_PORT = 4807
+
+
+def _req(port: int, path: str, payload: dict | None = None):
+    url = f"http://127.0.0.1:{port}{path}"
+    data = json.dumps(payload).encode() if payload is not None else None
+    req = urllib.request.Request(
+        url, data=data,
+        headers={"Content-Type": "application/json"} if data else {},
+        method="POST" if data is not None else "GET",
+    )
+    with urllib.request.urlopen(req, timeout=200) as r:
+        return json.loads(r.read().decode())
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(prog="oko")
+    ap.add_argument("--port", type=int, default=DEFAULT_PORT)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    c = sub.add_parser("capture", help="okini hvatanje")
+    c.add_argument("--mode", choices=["region", "window", "screen"], default="region")
+    c.add_argument("--dest", choices=["file", "clipboard"])
+    c.add_argument("--path", help="tačna putanja (fajl, bez dijaloga)")
+    c.add_argument("--noninteractive", action="store_true")
+
+    sub.add_parser("last", help="poslednji snimak")
+    sub.add_parser("health", help="status daemona")
+
+    a = ap.parse_args()
+    try:
+        if a.cmd == "capture":
+            res = _req(a.port, "/capture", {
+                "mode": a.mode, "dest": a.dest, "path": a.path,
+                "interactive": not a.noninteractive,
+            })
+        elif a.cmd == "last":
+            res = _req(a.port, "/last")
+        else:
+            res = _req(a.port, "/health")
+    except OSError as e:
+        print(json.dumps({"error": f"daemon nedostupan: {e}"}), file=sys.stderr)
+        return 2
+    print(json.dumps(res, ensure_ascii=False, indent=2))
+    return 0 if not (isinstance(res, dict) and res.get("error")) else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
