@@ -1,1 +1,0 @@
-"""API modeli za validaciju zahteva i odgovora."""

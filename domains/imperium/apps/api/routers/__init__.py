@@ -1,1 +1,0 @@
-"""FastAPI router moduli CORE sistema."""
