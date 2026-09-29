@@ -1,0 +1,19 @@
+{
+  "domain_id": "imperium",
+  "name": "IMPERIUM",
+  "domain_version": "0.1.0",
+  "kernel_version": "0.1.0",
+  "port": 4803,
+  "core_url": "http://localhost:8000",
+  "created_at": "2026-09-15T18:42:51",
+  "detached_from": "2776e6b",
+  "ai": {
+    "endpoint": "http://localhost:11434",
+    "assistant_model": "qwen2.5:7b"
+  },
+  "rag": {
+    "enabled": true,
+    "namespace": "cell:imperium"
+  },
+  "tools": []
+}

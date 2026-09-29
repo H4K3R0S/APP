@@ -1,0 +1,27 @@
+{
+  "_comment": "Allowlist za core/cell/executor.py. Nepoznat alat (nije ovde) = greska, NE izvrsava se (fail-closed). 'targets_network' je false svuda: curl/ollama pozivaju lokalnu SearXNG/Ollama infrastrukturu (v. memorija: 'SearXNG & VELES setup'), nisu KALIMA-stil autorizovana meta. TTS/SD (najavljeno u zadatku) NISU dodati kao stvarni unosi jer konkretan binar/CLI jos nije definisan — kad se izabere alat, dodati unos ovde (verovatno HIGH: matrica 05-approval-gates.md navodi 'TTS/objava' kao HIGH primer).",
+  "domain": "imperium",
+  "version": 1,
+  "updated": "2026-09-18",
+  "planned_future_tools": ["tts (binar TBD — verovatno HIGH, v. matrica)", "sd/stable-diffusion (binar TBD)"],
+  "tools": {
+    "curl": {
+      "binary": "/usr/bin/curl",
+      "risk": "LOW",
+      "targets_network": false,
+      "timeout_s": 30,
+      "action": "imperium.curl",
+      "status": "verified",
+      "note": "Pasivan HTTP upit (npr. ka lokalnom SearXNG-u 127.0.0.1:8080). LOW po matrici ('pasivni... FTS upit')."
+    },
+    "ollama": {
+      "binary": "/usr/local/bin/ollama",
+      "risk": "MEDIUM",
+      "targets_network": false,
+      "timeout_s": 120,
+      "action": "imperium.ollama",
+      "status": "verified",
+      "note": "Lokalna generacija (qwen2.5:7b na GPU, v. memorija). MEDIUM autonomno+audit."
+    }
+  }
+}
