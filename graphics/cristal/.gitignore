@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+gui/dist/
+# --- okruženje/keš (git_setup standard) ---
+*.pyo
+.venv*/
+venv*/
+.mypy_cache/
+*.log
+# --- tajne — samo lokalno, nikad u repo ---
+config/tmdb.json
+config/*credential*
+config/*secret*
+.env
+.env.*
+*.secret
