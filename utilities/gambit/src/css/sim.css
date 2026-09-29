@@ -1,0 +1,67 @@
+/* Stranica Simulacije */
+#screen-simulations.active { gap: 12px; }
+#sim-root { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+
+.sim-top { display: flex; align-items: center; gap: 12px; }
+.thread-control { margin-left: auto; padding: 8px 12px; min-width: 420px; }
+.threads-row { display: flex; align-items: center; gap: 10px; }
+.threads-lbl { color: var(--muted); font-size: 12px; font-weight: 700; }
+#sim-threads { flex: 1; accent-color: var(--green); }
+#sim-worker-mode { background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 6px; padding: 5px 8px; font-family: inherit; font-weight: 600; font-size: 12px; }
+.threads-text { color: var(--muted); font-size: 11px; margin-top: 4px; }
+body.sim-running #cpu-val::after { content: ' ⚡'; color: var(--orange); }
+
+.bench-title { margin-top: 10px; }
+.bench-card { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.bench-card > div { display: flex; flex-direction: column; gap: 2px; background: var(--bg); border-radius: 6px; padding: 6px 8px; }
+.bench-card span { color: var(--muted); font-size: 11px; }
+.bench-card b { font-variant-numeric: tabular-nums; font-size: 13px; }
+.bench-history { margin-top: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 11px; }
+.bench-hrow { display: grid; grid-template-columns: 90px 60px 1fr 60px 70px 100px 70px; gap: 8px; padding: 3px 6px; border-radius: 4px; color: var(--text); }
+.bench-hrow.head { color: var(--muted); font-weight: 700; }
+.bench-hrow:not(.head):nth-child(even) { background: var(--bg); }
+.bench-hrow span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.sim-controls { display: flex; align-items: flex-end; gap: 12px; }
+.sim-controls .field { margin: 0; }
+.sim-controls .field.grow { flex: 1; }
+.sim-controls select {
+  background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 6px;
+  padding: 9px 10px; font-family: inherit; font-weight: 600; font-size: 14px; width: 100%;
+}
+.sim-actions { display: flex; gap: 8px; }
+.sim-actions .btn-primary { width: auto; padding: 12px 22px; }
+.sim-actions .btn-secondary { padding: 0 16px; }
+.sim-hw { color: var(--muted); font-size: 12px; padding-bottom: 12px; white-space: nowrap; }
+
+.sim-progress { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.sim-progress .track { flex: 1; height: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.sim-progress .bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 200ms; }
+
+.sim-middle { display: grid; grid-template-columns: minmax(300px, 32%) 1fr; gap: 12px; flex: 1; min-height: 0; }
+.sim-card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; min-height: 0; }
+.sim-sub { color: var(--muted); font-size: 12px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.tier-row { margin-bottom: 10px; }
+.tier-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.tier-head .pct { font-variant-numeric: tabular-nums; }
+.tier-row .track { height: 12px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.tier-row .bar { height: 100%; width: 0%; background: var(--blue); transition: width 250ms; }
+.tier-row.good .bar { background: var(--green); }
+.tier-row.mid .bar { background: var(--orange); }
+.tier-row.bad .bar { background: var(--red); }
+
+#sim-budget-chart { position: relative; }
+#sim-budget-chart .uplot { position: absolute; inset: 12px; }
+.u-legend { color: var(--muted); font-family: var(--font); font-size: 11px; }
+.u-legend .u-marker { border-radius: 2px; }
+
+#sim-risk { flex: 0 1 auto; max-height: 46%; overflow-y: auto; scrollbar-width: thin; }
+.sim-middle { min-height: 240px; }
+.risk-row { display: flex; gap: 8px; align-items: baseline; font-size: 13px; }
+.risk-row b { font-size: 18px; }
+.rec { margin: 8px 0; font-size: 13px; color: var(--text); background: var(--bg); border-left: 3px solid var(--blue); padding: 8px 10px; border-radius: 4px; }
+.sim-summary { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.sim-summary > div { display: flex; flex-direction: column; gap: 2px; background: var(--bg); border-radius: 6px; padding: 6px 8px; }
+.sim-summary span { color: var(--muted); font-size: 11px; }
+.sim-summary b { font-variant-numeric: tabular-nums; }

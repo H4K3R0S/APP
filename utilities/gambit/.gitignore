@@ -1,0 +1,24 @@
+# --- okruženje/keš (git_setup standard) ---
+__pycache__/
+*.pyc
+*.pyo
+.venv*/
+venv*/
+node_modules/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.log
+# --- tajne — samo lokalno, nikad u repo ---
+config/tmdb.json
+config/*credential*
+config/*secret*
+.env
+.env.*
+*.secret
+
+# --- gambit ---
+data/**/*.json
+.commit-shots/
+assets/*.tmp
+data/*.jsonl

@@ -1,0 +1,65 @@
+/* Mines: mreža 5×5 u Stake stilu */
+.mines-render { height: 100%; display: flex; align-items: center; justify-content: center; padding: 8px; }
+.mines-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: min(100%, calc(100vh - 380px), 480px);
+  aspect-ratio: 1;
+}
+.mine-field {
+  position: relative;
+  border: 0;
+  border-radius: 8px;
+  background: #2f3b50;
+  box-shadow: 0 4px 0 #22293a;
+  cursor: pointer;
+  transition: transform 80ms, background 120ms, filter 120ms;
+  padding: 0;
+}
+.mine-field:disabled { cursor: default; }
+.mines-grid.active .mine-field:not(:disabled):hover { background: #3a4861; transform: translateY(-2px); }
+.mines-grid.active .mine-field:not(:disabled):active { transform: translateY(2px); box-shadow: 0 1px 0 #22293a; }
+.mine-field .gem { position: absolute; inset: 22%; border-radius: 6px; opacity: 0; transition: opacity 160ms, transform 160ms; transform: scale(0.6); }
+.mine-field.field-pulse { animation: field-pulse 300ms ease-out; }
+@keyframes field-pulse { 0% { filter: brightness(1.6); } 100% { filter: brightness(1); } }
+
+/* otkriven dijamant */
+.mine-field.field-diamond { background: #1b2432; box-shadow: inset 0 0 0 2px #0f172a; }
+.mine-field.field-diamond .gem {
+  opacity: 1; transform: scale(1);
+  background: linear-gradient(135deg, #86efac, #22c55e 55%, #15803d);
+  clip-path: polygon(50% 0, 100% 35%, 50% 100%, 0 35%);
+  filter: drop-shadow(0 0 8px rgba(34,197,94,0.6));
+}
+/* pogođena mina */
+.mine-field.field-exploded { background: #3b1220; box-shadow: inset 0 0 0 2px var(--red); animation: explode 350ms ease-out; }
+.mine-field.field-exploded .gem { opacity: 1; transform: scale(1); background: radial-gradient(circle, #fecaca 0 18%, var(--red) 20% 60%, #7f1d1d 62%); border-radius: 50%; }
+@keyframes explode { 0% { transform: scale(0.9); filter: brightness(2); } 100% { transform: none; filter: none; } }
+/* ostale mine posle kraja runde (prigušeno) */
+.mine-field.field-revealed { background: #26202b; }
+.mine-field.field-revealed .gem { opacity: 0.55; transform: scale(0.8); background: radial-gradient(circle, #fca5a5 0 18%, #b91c1c 20% 60%, #450a0a 62%); border-radius: 50%; }
+/* auto mod: izabrano polje */
+.mine-field.field-selected { box-shadow: inset 0 0 0 3px var(--purple), 0 0 12px rgba(168,85,247,0.45), 0 4px 0 #22293a; }
+.mine-field.field-dim { filter: brightness(0.6); }
+.mines-grid.auto-pick .mine-field { cursor: pointer; }
+
+.btn-primary.cashout { background: var(--orange); color: #1c1917; }
+
+/* Hibridni okidači rotacije */
+.shift-box { border-top: 1px solid var(--border); margin-top: 6px; padding-top: 8px; }
+.shift-rows { display: flex; flex-direction: column; border: 2px solid var(--border); border-radius: 6px; background: var(--bg); overflow: hidden; }
+.shift-rows .rule-opt { padding: 6px 10px; justify-content: flex-start; font-size: 11px; }
+.shift-rows .rule-opt > span { flex: 0 1 auto; text-align: left; }
+.shift-rows .rule-opt + .rule-opt { border-top: 1px solid var(--border); }
+.shift-rows input[type=number] { width: 52px; flex: 0 0 52px; margin-left: 0; padding: 3px 6px; border-width: 1px; }
+#mines-shift-algo {
+  background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 6px;
+  padding: 8px 10px; font-family: inherit; font-weight: 600; font-size: 13px; width: 100%;
+}
+
+#mines-count {
+  background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 6px;
+  padding: 9px 10px; font-family: inherit; font-weight: 600; font-size: 14px; width: 100%;
+}
+#mines-count:focus { outline: none; border-color: var(--blue); }

@@ -1,0 +1,117 @@
+/* ============================================================
+   window-chrome.css — kanonski "seamless" title bar (Sloj A)
+   Izvor istine: KALIMA (core-shell.css .titlebar*), preimenovano u .wc-*.
+   Boja dolazi iz --wc-accent-rgb (format "R, G, B"), fallback na
+   --domain-accent-rgb, pa čvrsta zelena. Glifovi su čisti CSS okviri na
+   currentColor — bez fontova/ikonica/SVG. Framework-neutralno.
+   ============================================================ */
+
+:root {
+  /* Visina trake. */
+  --wc-titlebar-h: 34px;
+
+  /* Akcenat: aplikacija definiše SAMO --wc-accent-rgb ("R, G, B").
+     Fallback: postojeći --domain-accent-rgb → čvrsta zelena (34,197,94). */
+  --wc-accent-rgb: var(--domain-accent-rgb, 34, 197, 94);
+  --wc-accent: rgb(var(--wc-accent-rgb));
+
+  /* Close-hover je uvek crven. */
+  --wc-close-hover-bg: rgba(239, 68, 68, 0.22);
+  --wc-close-hover-fg: #fecaca;
+}
+
+/* Traka: providna, pomera prozor (drag region). Layout-agnostična — radi i u
+   toku (grid/flex red) i kao fiksni overlay (uz .wc-titlebar--fixed). */
+.wc-titlebar {
+  display: flex;
+  align-items: center;
+  height: var(--wc-titlebar-h);
+  padding: 0 8px;
+  background: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-app-region: drag; /* Electron: cela traka pomera prozor */
+}
+
+/* Overlay varijanta (KALIMA/Workplace): traka lebdi preko vrha sadržaja. */
+.wc-titlebar--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
+/* Kontrole uz desnu ivicu (u toku flex-a). */
+.wc-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  -webkit-app-region: no-drag; /* da klik na dugme ne pokrene drag */
+}
+
+.wc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--wc-accent);
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+  -webkit-app-region: no-drag;
+}
+
+.wc-btn:hover {
+  background: rgba(var(--wc-accent-rgb), 0.14);
+}
+
+.wc-btn--close:hover {
+  background: var(--wc-close-hover-bg);
+  color: var(--wc-close-hover-fg);
+}
+
+/* Glif — kvadrat 10x10 u kome se crtaju oblici preko currentColor. */
+.wc-glyph {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+/* Minimize — crta (gornji border). */
+.wc-btn--min .wc-glyph {
+  height: 0;
+  border-top: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+/* Maximize — kvadratić (pun border). */
+.wc-btn--max .wc-glyph {
+  border: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+/* Close — X iz dve dijagonale. */
+.wc-btn--close .wc-glyph::before,
+.wc-btn--close .wc-glyph::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+.wc-btn--close .wc-glyph::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.wc-btn--close .wc-glyph::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

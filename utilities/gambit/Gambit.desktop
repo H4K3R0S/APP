@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Gambit
+GenericName=Simulator kazino igara
+Comment=Dice/Mines/Keno simulator sa strategijama i Monte Carlo analizom
+Exec=/home/kalima/ai/APPS/utilities/gambit/gambit.sh
+Icon=/home/kalima/ai/APPS/utilities/gambit/assets/icon.png
+Path=/home/kalima/ai/APPS/utilities/gambit
+Terminal=false
+Categories=Game;
+Keywords=gambit;dice;mines;keno;simulator;kazino;
+StartupWMClass=gambit
+StartupNotify=true

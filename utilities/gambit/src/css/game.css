@@ -1,0 +1,55 @@
+/* Ekran igre: tri vertikalne kolone (kontrole | render+grafikon | live stats), puna visina, bez skrola */
+#screen-game.active {
+  display: grid;
+  grid-template-columns: minmax(280px, 27%) minmax(0, 1fr) minmax(260px, 25%);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  overflow: hidden; /* visinu daje .screen { inset: 12px } — bez height:100% (prelivalo bi 24px) */
+}
+#screen-game > h1 { grid-column: 1 / -1; margin: 0; }
+
+.game-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Privremeni pod-kontejneri (Faza 1): isprekidana ivica + labela ID-ja; igre ih pune u Fazi 2+ */
+.game-slot {
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  min-height: 48px;
+  padding: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.game-slot.grow { flex: 1; min-height: 0; }
+#panel-action-buttons { margin-top: auto; }
+#panel-game-render { flex: 3; position: relative; }
+#panel-live-chart { flex: 2; }
+
+/* Veliki zeleni prikaz pogotka u centru table (win flash) */
+.win-flash {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; pointer-events: none; opacity: 0;
+}
+.win-flash.show { animation: win-pop 1.5s ease-out forwards; }
+.win-flash .wf-mult {
+  font-size: 56px; font-weight: 900; color: var(--green);
+  text-shadow: 0 0 24px rgba(34,197,94,0.6); letter-spacing: 0.02em;
+}
+.win-flash .wf-profit { font-size: 24px; font-weight: 800; color: var(--green); text-shadow: 0 0 16px rgba(34,197,94,0.5); }
+@keyframes win-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  15% { opacity: 1; transform: scale(1.12); }
+  30% { transform: scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.02); }
+}

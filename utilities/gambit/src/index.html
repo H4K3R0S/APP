@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; object-src 'none'">
+  <title>Gambit</title>
+  <link rel="stylesheet" href="vendor/window-chrome/window-chrome.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/dice.css">
+  <link rel="stylesheet" href="css/auto.css">
+  <link rel="stylesheet" href="css/stats.css">
+  <link rel="stylesheet" href="../node_modules/uplot/dist/uPlot.min.css">
+  <link rel="stylesheet" href="css/chart.css">
+  <link rel="stylesheet" href="css/sim.css">
+  <link rel="stylesheet" href="css/mines.css">
+  <link rel="stylesheet" href="css/keno.css">
+  <link rel="stylesheet" href="css/sequencer.css">
+  <link rel="stylesheet" href="css/hub.css">
+</head>
+<body>
+  <div id="wc-root"></div>
+  <nav id="sidebar">
+    <button class="nav-btn" data-screen="screen-game" title="Igra"><span class="ico">🎮</span><span class="lbl">Igra</span></button>
+    <button class="nav-btn" data-screen="screen-simulations" title="Simulacije"><span class="ico">📈</span><span class="lbl">Simulacije</span></button>
+    <button class="nav-btn" data-screen="screen-strategy-hub" title="Strategy Hub"><span class="ico">🗂️</span><span class="lbl">Hub</span></button>
+  </nav>
+
+  <header id="topbar">
+    <div class="brand">GAMBIT</div>
+    <div class="game-pick">
+      <label for="game-select">Izaberi igru</label>
+      <select id="game-select">
+        <option value="dice">DICE</option>
+        <option value="mines">MINES</option>
+        <option value="keno">KENO</option>
+      </select>
+    </div>
+    <div class="sysmon">
+      <span class="chip">CPU: <b id="cpu-val">--</b>%</span>
+      <span class="chip">RAM: <b id="ram-val">--</b> GB</span>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="screen-game" class="screen">
+      <h1>Ekran za Igru</h1>
+      <div id="game-left-panel" class="game-panel">
+        <div id="panel-mode-tabs" class="game-slot">#panel-mode-tabs — Manual / Auto</div>
+        <div id="panel-input-fields" class="game-slot grow">#panel-input-fields — ulog i pravila</div>
+        <div id="panel-action-buttons" class="game-slot">#panel-action-buttons — glavno dugme</div>
+      </div>
+      <div id="game-center-panel" class="game-panel">
+        <div id="panel-game-render" class="game-slot grow">#panel-game-render — kocka / mreža / tabla</div>
+        <div id="panel-live-chart" class="game-slot grow">#panel-live-chart — kriva profita</div>
+      </div>
+      <div id="game-right-panel" class="game-panel">
+        <div id="panel-live-balance" class="game-slot">#panel-live-balance — saldo i profit %</div>
+        <div id="panel-streak-counters" class="game-slot">#panel-streak-counters — nizovi promašaja</div>
+        <div id="panel-profit-notes" class="game-slot grow">#panel-profit-notes — prekretnice profita</div>
+      </div>
+    </section>
+    <section id="screen-simulations" class="screen">
+      <h1>Simulacije i Analitika</h1>
+      <div id="sim-root"></div>
+    </section>
+    <section id="screen-strategy-hub" class="screen">
+      <h1>Strategy Hub (Biblioteka)</h1>
+      <div id="hub-root"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/renderer.js"></script>
+</body>
+</html>

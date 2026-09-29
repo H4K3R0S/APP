@@ -1,0 +1,82 @@
+/* Globalni okvir: fiksni sidebar (levo) + topbar (gore) + centralni radni prostor */
+body {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  grid-template-rows: var(--wc-titlebar-h) 56px 1fr;
+  grid-template-areas:
+    "wc   wc"
+    "side top"
+    "side main";
+}
+
+/* Seamless traka prozora zauzima svoj red na vrhu (u toku, ne overlay). */
+#wc-root { grid-area: wc; }
+
+#sidebar {
+  grid-area: side;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 8px;
+  gap: 4px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 10px;
+  padding: 10px 0 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: background 120ms, color 120ms;
+}
+.nav-btn .ico { font-size: 20px; line-height: 1; }
+.nav-btn:hover { background: var(--panel-2); color: var(--text); }
+.nav-btn.active { background: var(--panel-2); color: var(--text); box-shadow: inset 3px 0 0 var(--green); }
+
+#topbar {
+  grid-area: top;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 24px;
+}
+#topbar .brand { font-weight: 700; letter-spacing: 0.18em; font-size: 15px; }
+#topbar .game-pick { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+#topbar select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: inherit;
+  font-weight: 600;
+}
+#topbar select:focus { outline: none; border-color: var(--blue); }
+#topbar .sysmon { margin-left: auto; display: flex; gap: 10px; }
+.chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.chip b { color: var(--text); font-weight: 600; }
+
+#main-content {
+  grid-area: main;
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+}
+.placeholder { color: var(--muted); text-align: center; margin-top: 40px; }

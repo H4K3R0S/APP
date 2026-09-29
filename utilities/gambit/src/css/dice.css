@@ -1,0 +1,177 @@
+/* Zajedničke kontrole igara (tabovi, polja, dugmad) + Dice slider */
+.game-slot.filled { border: 0; padding: 0; color: inherit; font-size: inherit; }
+
+.mode-tabs {
+  display: flex;
+  background: var(--bg);
+  border-radius: 24px;
+  padding: 4px;
+  gap: 4px;
+}
+.mode-tabs .tab {
+  flex: 1;
+  border: 0;
+  border-radius: 20px;
+  padding: 9px 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mode-tabs .tab.active { background: var(--panel-2); color: var(--text); }
+
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.field > span { color: var(--muted); font-size: 12px; font-weight: 600; }
+.field input, .bet-row input {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.field input:focus { outline: none; border-color: var(--blue); }
+.field input:disabled { color: var(--muted); }
+input[type=number]::-webkit-inner-spin-button { opacity: 0.4; }
+
+.bet-row { display: flex; gap: 0; }
+.bet-row input { border-radius: 6px 0 0 6px; }
+.bet-row .quick {
+  border: 2px solid var(--border);
+  border-left: 0;
+  background: var(--panel-2);
+  color: var(--text);
+  font-family: inherit;
+  font-weight: 700;
+  padding: 0 14px;
+  cursor: pointer;
+}
+.bet-row .quick:last-child { border-radius: 0 6px 6px 0; }
+.bet-row .quick:hover { background: #33415a; }
+
+.btn-primary {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 14px;
+  background: var(--green);
+  color: #052e16;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 120ms;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:disabled { filter: grayscale(0.6) brightness(0.8); cursor: default; }
+.btn-primary.danger { background: var(--red); color: #fff; }
+
+/* --- Auto panel: pravila uloga --- */
+.auto-panel { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+.rule-row { display: flex; border: 2px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--bg); }
+.rule-opt { display: flex; align-items: center; gap: 6px; padding: 6px 10px; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; }
+.rule-opt.grow { flex: 1; border-left: 2px solid var(--border); }
+.rule-opt input[type=radio] { accent-color: var(--green); margin: 0; }
+.rule-opt:has(input:checked) { color: var(--text); background: var(--panel-2); }
+.rule-opt input[type=number] { width: 64px; padding: 4px 6px; border-width: 1px; margin-left: auto; }
+.rule-opt .unit { color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.two-col .field input { padding: 7px 8px; }
+.dice-slider.locked { pointer-events: none; opacity: 0.75; }
+
+/* --- Čuvanje/učitavanje strategija --- */
+.strategy-box { border-top: 1px solid var(--border); margin-top: 6px; padding-top: 10px; }
+.strategy-box .row { display: flex; gap: 6px; }
+.strategy-box .row input, .strategy-box .row select { flex: 1; min-width: 0; }
+.strategy-box select {
+  background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 6px;
+  padding: 8px 10px; font-family: inherit; font-weight: 600; font-size: 13px;
+}
+.btn-secondary {
+  border: 2px solid var(--border); border-radius: 6px; background: var(--panel-2); color: var(--text);
+  font-family: inherit; font-weight: 700; padding: 0 12px; cursor: pointer; white-space: nowrap;
+}
+.btn-secondary:hover { background: #33415a; }
+.btn-secondary.danger:hover { border-color: var(--red); color: var(--red); }
+input:disabled, button:disabled { opacity: 0.6; cursor: default; }
+
+/* --- Dice render --- */
+.dice-render { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 12px 28px; }
+.dice-scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; font-weight: 600; padding: 0 2px; }
+.dice-slider {
+  position: relative;
+  height: 44px;
+  background: var(--panel-2);
+  border-radius: 999px;
+  padding: 16px 0;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+.dice-track { position: absolute; top: 16px; height: 12px; }
+.dice-track.lose { background: var(--red); border-radius: 999px 0 0 999px; }
+.dice-track.win { background: var(--green); border-radius: 0 999px 999px 0; }
+.dice-slider.under .dice-track.win { border-radius: 999px 0 0 999px; }
+.dice-slider.under .dice-track.lose { border-radius: 0 999px 999px 0; }
+.dice-handle {
+  position: absolute;
+  top: 6px;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  background: var(--blue);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  background-image: repeating-linear-gradient(90deg, transparent 0 4px, rgba(255,255,255,0.35) 4px 6px);
+  background-size: 18px 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.dice-roll-flash {
+  position: absolute;
+  top: -34px;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  font-weight: 800;
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+  pointer-events: none;
+}
+.dice-roll-flash.show { opacity: 1; transition: none; }
+.dice-roll-flash.win { border-color: var(--green); color: var(--green); }
+.dice-roll-flash.lose { border-color: var(--red); color: var(--red); }
+
+.dice-params {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background: var(--panel-2);
+  border-radius: 8px;
+  padding: 12px;
+}
+.dice-params .field { margin: 0; }
+.dice-params .cond {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+.dice-params .cond:hover { color: var(--text); }
+
+/* Leva sekcija: forma može biti viša od prozora → skrol unutar panela (dugme ostaje dole) */
+#panel-input-fields.filled { overflow-y: auto; padding-right: 4px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
